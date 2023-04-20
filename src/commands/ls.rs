@@ -1,3 +1,5 @@
+use colored::Colorize;
+
 pub struct Ls;
 
 impl Ls {
@@ -9,7 +11,11 @@ impl Ls {
             let path = entry.file_name().into_string().unwrap();
 
             if !path.starts_with(".") {
-                println!("{}", path);
+                if entry.path().is_dir() {
+                    println!("{}", path.bright_blue());
+                } else {
+                    println!("{}", path);
+                }
             }
         }
     }

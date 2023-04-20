@@ -1,3 +1,4 @@
+use colored::Colorize;
 use command_list::CommandList;
 use commands::Commands;
 use std::{collections::HashMap, io::Write};
@@ -30,7 +31,7 @@ impl<'a> Command<'a> {
         };
 
         if command == Commands::UnInit {
-            println!("'{}' is a invalid command.", self.name);
+            println!("'{}' is a invalid command.", self.name.red());
             return;
         }
 
@@ -39,7 +40,7 @@ impl<'a> Command<'a> {
             } else {
                 for arg in self.args.iter() {
                     if !args.contains(arg) {
-                        println!("'{arg}' is a invalid argument.");
+                        println!("'{}' is a invalid argument.", arg.red());
                         return;
                     }
                 }
@@ -72,6 +73,7 @@ impl Shell {
                     .into_os_string()
                     .into_string()
                     .unwrap()
+                    .green()
             );
             std::io::stdout().flush()?;
             self.io.read_line(&mut input)?;
